@@ -1,0 +1,44 @@
+127.0.0.1 | SUCCESS => {
+    "ansible_facts": {
+        "ansible_default_ipv4": {
+            "address": "10.0.2.15",
+            "alias": "enp0s8",
+            "broadcast": "",
+            "gateway": "10.0.2.2",
+            "interface": "enp0s8",
+            "macaddress": "08:00:27:63:06:39",
+            "mtu": 1500,
+            "netmask": "255.255.255.0",
+            "network": "10.0.2.0",
+            "prefix": "24",
+            "type": "ether"
+        },
+        "ansible_distribution": "Ubuntu",
+        "ansible_distribution_version": "24.04",
+        "ansible_env": {
+            "DBUS_SESSION_BUS_ADDRESS": "unix:path=/run/user/1000/bus",
+            "HOME": "/home/alaricode",
+            "LANG": "en_US.UTF-8",
+            "LC_TERMINAL": "iTerm2",
+            "LC_TERMINAL_VERSION": "3.5.14",
+            "LOGNAME": "alaricode",
+            "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
+            "PWD": "/home/alaricode",
+            "SHELL": "/bin/bash",
+            "SHLVL": "0",
+            "SSH_CLIENT": "10.0.2.2 51442 22",
+            "SSH_CONNECTION": "10.0.2.2 51442 10.0.2.15 22",
+            "SSH_TTY": "/dev/pts/0",
+            "TERM": "xterm-256color",
+            "USER": "alaricode",
+            "XDG_RUNTIME_DIR": "/run/user/1000",
+            "XDG_SESSION_CLASS": "user",
+            "XDG_SESSION_ID": "57",
+            "XDG_SESSION_TYPE": "tty",
+            "_": "/bin/sh"
+        },
+        "ansible_hostname": "server-demo",
+        "discovered_interpreter_python": "/usr/bin/python3.12"
+    },
+    "changed": false
+}
