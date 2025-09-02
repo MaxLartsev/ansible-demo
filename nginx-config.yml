@@ -1,0 +1,39 @@
+- name: Конфиг контейнера с Nginx
+  hosts: demo
+  tasks:
+    - name: Создаем директорию для монтирования
+      become: true
+      ansible.builtin.file:
+        path: /tmp/nginx_config
+        state: directory
+        mode: '0755'
+
+    - name: Копируем default.conf в директорию
+      become: true
+      ansible.builtin.copy:
+        src: ./default.conf
+        dest: /tmp/nginx_config/default.conf
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Копируем index.html в директорию
+      become: true
+      ansible.builtin.copy:
+        src: ./index.html
+        dest: /tmp/nginx_config/index.html
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Cоздание контейнера c Nginx
+      become: true
+      community.docker.docker_container:
+        name: nginx
+        image: nginx:latest
+        ports:
+          - 8081:80
+        working_dir: /opt/app/nginx
+        volumes:
+          - /tmp/nginx_config:/etc/nginx/conf.d
+          - /tmp/nginx_config:/usr/share/nginx/html
