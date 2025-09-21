@@ -1,0 +1,40 @@
+version: "3.8"
+services:
+  nginx:
+    image: nginx:latest
+    restart: always
+    volumes:
+      - config:/etc/nginx/conf.d
+    ports:
+      - 80:80
+    networks:
+      - myNetwork
+    deploy:
+      mode: global
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres:latest
+    restart: always
+    ports:
+      - 5432:5432
+    networks:
+      - myNetwork
+    deploy:
+      placement:
+        constraints:
+          - node.labels.db_node == true
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=demo
+      - POSTGRES_USER=demo
+      - POSTGRES_PASSWORD=demo
+
+networks:
+  myNetwork:
+    driver: overlay
+
+volumes:
+  config:
+  pg_data:
