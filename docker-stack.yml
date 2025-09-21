@@ -10,7 +10,8 @@ services:
     networks:
       - myNetwork
     deploy:
-      mode: global
+      mode: replicated
+      replicas: 3
     depends_on:
       - postgres
   postgres:
