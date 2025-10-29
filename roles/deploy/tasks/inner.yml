@@ -1,0 +1,6 @@
+# - name: Inner
+#   debug:
+#     msg: "1 {{ outer_loop }} - 2 {{ item }}"
+#   loop:
+#     - 1
+#     - 2

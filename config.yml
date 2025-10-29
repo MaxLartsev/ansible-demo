@@ -1,5 +1,5 @@
 - name: Preconfig
-  hosts: demo
+  hosts: managers
   tasks:
     - name: Установка Docker
       become: true
