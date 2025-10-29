@@ -1,0 +1,48 @@
+---
+- name: Убедиться, что cуществует группа {{ ssh_users_group_to_add }}
+  ansible.builtin.group:
+    name: "{{ ssh_users_group_to_add }}"
+    state: present
+
+- name: Создание и настройка паролей для пользователей
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    password: "{{ item.password | hash('sha512') }}"
+    groups: "{{ ssh_users_group_to_add }}"
+    shell: /bin/bash
+    state: present
+  become: true
+  loop: "{{ ssh_users_data }}"
+
+- name: Убедиться, что домашняя директория существует для пользователей
+  ansible.builtin.file:
+    path: "~{{ item.name }}"
+    state: directory
+    mode: '0755'
+  become: true
+  loop: "{{ ssh_users_data }}"
+
+- name: Генерация SSH-ключей для {{ item.name }}
+  community.crypto.openssh_keypair:
+    path: "~{{ item.name }}/.ssh/id_rsa"
+  become: true
+  loop: "{{ ssh_users_data }}"
+
+- name: Убедиться, что директория .ssh существует у пользователей
+  ansible.builtin.file:
+    path: "~{{ item.name }}/.ssh"
+    state: directory
+    mode: '0755'
+  become: true
+  loop: "{{ ssh_users_data }}"
+
+- name: Копирование публичного ключа в authorized_keys для пользователей
+  ansible.builtin.file:
+    src: "~{{ item.name }}/.ssh/id_rsa.pub"
+    dest: "~{{ item.name }}/.ssh/authorized_keys"
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+    mode: '0644'
+    state: hard
+  become: true
+  loop: "{{ ssh_users_data }}"

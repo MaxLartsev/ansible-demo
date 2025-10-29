@@ -1,0 +1,9 @@
+[demo]
+127.0.0.1 ansible_user=alaricode ansible_port=2222
+
+[deploy]
+server-1 ansible_host=127.0.0.1 ansible_user=vagrant ansible_port=2223
+
+[managers]
+server-2 ansible_host=127.0.0.1 ansible_user=vagrant ansible_port=2224
+server-3 ansible_host=127.0.0.1 ansible_user=vagrant ansible_port=2225
